@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    {{ post.title }}
+{% endblock %}
+
+{% block content %}
+    <div class="hero-wrap hero-bread" style="background-image: url('{% static 'pics/bg_1.jpg' %}');">
+        <div class="container">
+            <div class="row no-gutters slider-text align-items-center justify-content-center">
+                <div class="col-md-9 ftco-animate text-center">
+                    <p class="breadcrumbs"><span class="ml-2"><a href="{% url 'home:home' %}">خانه</a></span></p>
+                    <h1 class="mb-0 bread">{{ post.title }}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="ftco-section ftco-degree-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 ftco-animate">
+                    <h2 class="mb-3">{{ post.title }}</h2>
+                    <p>
+                        <img src="{{ post.image.url }}" alt="{{ post.title }}" class="img-fluid">
+                    </p>
+                    <p>{{ post.text }}</p>
+
+
+                    <div class="pt-5 mt-5">
+                        <h3 class="mb-5">نظر سنجی</h3>
+                        <hr>
+                        {% if post.blog_comments.all %}
+                            {% for comment in post.blog_comments.all %}
+                                {% if comment.parent == None %}
+                                    <ul class="comment-list">
+
+
+                                        <li class="comment">
+                                            <div class="vcard bio">
+                                                {% if comment.user.profile.image.url %}
+                                                    <img src="{{ comment.user.profile.image.url }}"
+                                                         alt="{{ comment.user.username }}">
+                                                {% else %}
+                                                    <img src="{% static 'pics/person_1.jpg' %}"
+                                                         alt="{{ comment.user.username }}">
+                                                {% endif %}
+                                            </div>
+                                            <div class="comment-body">
+                                                <h3>{{ comment.user.username }}</h3>
+                                                <div class="meta">{{ comment.created_at }}</div>
+                                                <p>{{ comment.text }}</p>
+                                                <p>
+                                                    <button onclick="set_value({{ comment.id }})" class="reply">پاسخ
+                                                    </button>
+                                                </p>
+                                            </div>
+
+                                            {% for reply in comment.replies.all %}
+                                                <ul class="children">
+                                                    <li class="comment">
+                                                        <div class="vcard bio">
+                                                            {% if reply.user.profile.image.url %}
+                                                                <img src="{{ reply.user.profile.image.url }}"
+                                                                     alt="{{ reply.user.username }}">
+                                                            {% else %}
+                                                                <img src="{% static 'pics/person_1.jpg' %}"
+                                                                     alt="{{ reply.user.username }}">
+                                                            {% endif %}
+                                                        </div>
+                                                        <div class="comment-body">
+                                                            <h3>{{ reply.user.username }}</h3>
+                                                            <div class="meta">{{ reply.created_at }}</div>
+                                                            <p>{{ reply.text }}</p>
+                                                        </div>
+
+                                                    </li>
+                                                </ul>
+                                            {% endfor %}
+                                        </li>
+
+                                    </ul>
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            <h4>نظری برای این پست ثبت نشده</h4>
+                        {% endif %}
+                        <!-- END comment-list -->
+
+                        {% if request.user.is_authenticated %}
+                            <div class="comment-form-wrap pt-5">
+                                <h3 class="mb-5">تجربه خود را با ما در میان بگذارید</h3>
+                                <form method="post" class="p-5 bg-light">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <label for="message">پیام</label>
+                                        <textarea name="message" id="message" cols="30" rows="10"
+                                                  class="form-control"></textarea>
+                                        <input type="hidden" name="parent_id" id="parent_id">
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn py-3 px-4 btn-primary">ارسال نظر</button>
+                                    </div>
+                                </form>
+                            </div>
+                        {% else %}
+                            <h5>برای ارسال نظر وارد شوید.</h5>
+                            <a href="{% url 'account:login' %}">ورود</a>
+                        {% endif %}
+
+
+                    </div>
+                </div> <!-- .col-md-8 -->
+
+                <!-- Sidebar-->
+                {% include 'includes/blog_sidebar.html' %}
+
+            </div>
+        </div>
+    </section> <!-- End section -->
+
+    <script>
+        function set_value(id) {
+            document.getElementById('parent_id').value = id;
+            window.location.href = '#body'
+            var textarea = document.getElementById('message');
+            textarea.focus();
+
+        }
+
+
+    </script>
+{% endblock %}

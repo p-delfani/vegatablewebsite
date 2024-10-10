@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    About Us
+{% endblock %}
+
+{% block content %}
+    <div class="hero-wrap hero-bread" style="background-image: url('{% static 'pics/bg_1.jpg' %}');">
+        <div class="container">
+            <div class="row no-gutters slider-text align-items-center justify-content-center">
+                <div class="col-md-9 ftco-animate text-center">
+                    <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'home:home' %}">خانه</a></span></p>
+                    <h1 class="mb-0 bread">به سلامتی خود اهمیت دهید</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="ftco-section ftco-no-pb ftco-no-pt bg-light">
+        <div class="container">
+            <div class="row">
+
+            </div>
+            <div class="col-md-7 py-5 wrap-about pb-md-5 ftco-animate">
+                <div class="heading-section-bold mb-4 mt-md-5">
+                    <div class="ml-md-0">
+                        <h2 class="mb-4">به وب سایت آسان خرید خوش آمدین</h2>
+                    </div>
+                </div>
+                <div class="pb-md-5">
+                    <p>امروزه به دلیل افزایش روزافزون جمعیت تامین غذا یکی ازچالش برانگیز ترین مسائلی است که هم درحال
+                        حاضروهم درآینده با آن مواجه هستیم نیاز به تامل زیادی دارد به همین دلیل دراین مقاله سعی براین
+                        داشتیم که بیشتر درمورد کشاورزی که پایه و اساس تامین غذا است بحث کنیم درحال حاضر درتمام دنیا برای
+                        پیشگیری ازخطرات احتمالی ناشی ازافت زدگی و بیماری محصولات کشاورزی و دامی ازانواع کودهای شیمیایی
+                        سموم کلره و فسفره و انتی بیوتیک استفاده میشود موادغذایی الی ممکن است درمعرض بیشتر ازغذاهای
+                        معمولی به الودگی میکروبیولوژیکی باشند
+                    </p>
+                    <p>درحالیکه این احتمال وجود دارد که موادغذایی ارگانیک رشدپایین تری داشته باشند نتایج نشان داد که
+                        ارزش غذایی مهمترین عامل گرایش مصرف کنندگان برای خریدومصرف این محصولات می باشد و اهمیت افزایش
+                        اگاهی مصرف کنندگان نسبت به ارزش غذایی محصولات ارگانیک درتغییررفتارهای مصرفی آنان و توسعه و گسترش
+                        تولید و مصرف موادغذایی سالم مورد تایید قرارگرفت
+                    </p>
+                    <p><a href="#" class="btn btn-primary">خرید آنی</a></p>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+
+
+
+    <section class="ftco-section ftco-counter img" id="section-counter" style="background-image: url({% static 'pics/bg_3.jpg' %});">
+        <div class="container">
+            <div class="row justify-content-center py-5">
+                <div class="col-md-10">
+                    <div class="row">
+                        <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
+                            <div class="block-18 text-center">
+                                <div class="text">
+                                    <strong class="number" data-number="10000">0</strong>
+                                    <span>رضایت مشتری</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
+                            <div class="block-18 text-center">
+                                <div class="text">
+                                    <strong class="number" data-number="100">0</strong>
+                                    <span>تنوع</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
+                            <div class="block-18 text-center">
+                                <div class="text">
+                                    <strong class="number" data-number="1000">0</strong>
+                                    <span>مشترک</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
+                            <div class="block-18 text-center">
+                                <div class="text">
+                                    <strong class="number" data-number="100">0</strong>
+                                    <span>جوایز ویژه</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <section class="ftco-section bg-light">
+        <div class="container">
+            <div class="row no-gutters ftco-services">
+                <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
+                    <div class="media block-6 services mb-md-0 mb-4">
+                        <div class="icon bg-color-1 active d-flex justify-content-center align-items-center mb-2">
+                            <span class="flaticon-shipped"></span>
+                        </div>
+                        <div class="media-body">
+                            <h3 class="heading">ارسال رایگان</h3>
+                            <span>برای سفارش های بالای 100 هزارتومان</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
+                    <div class="media block-6 services mb-md-0 mb-4">
+                        <div class="icon bg-color-2 d-flex justify-content-center align-items-center mb-2">
+                            <span class="flaticon-diet"></span>
+                        </div>
+                        <div class="media-body">
+                            <h3 class="heading">تازگی محصولات</h3>
+                            <span>بسته بندی مناسب</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
+                    <div class="media block-6 services mb-md-0 mb-4">
+                        <div class="icon bg-color-3 d-flex justify-content-center align-items-center mb-2">
+                            <span class="flaticon-award"></span>
+                        </div>
+                        <div class="media-body">
+                            <h3 class="heading">کیفیت برتر</h3>
+                            <span>محصولات با کیفیت</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
+                    <div class="media block-6 services mb-md-0 mb-4">
+                        <div class="icon bg-color-4 d-flex justify-content-center align-items-center mb-2">
+                            <span class="flaticon-customer-service"></span>
+                        </div>
+                        <div class="media-body">
+                            <h3 class="heading">پشتیبانی</h3>
+                            <span>پشتیبانی 24 ساعته</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
