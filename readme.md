@@ -62,7 +62,7 @@ To set up the project on your local machine, follow these steps:
 
 
 ## Blog Features
-    The blog allows admins to create posts about topics related to fruits, vegetables, and healthy eating. Users can browse and comment on these posts
+- The blog allows admins to create posts about topics related to fruits, vegetables, and healthy eating. Users can browse and comment on these posts
 
 
 ## Managing Products
