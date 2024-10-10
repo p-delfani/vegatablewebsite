@@ -1,0 +1,194 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    {{ product.title }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="hero-wrap hero-bread" style="background-image: url('{% static 'pics/bg_1.jpg' %}');">
+        <div class="container">
+            <div class="row no-gutters slider-text align-items-center justify-content-center">
+                <div class="col-md-9 ftco-animate text-center">
+                    <p class="breadcrumbs"><span class="mr-2"><a
+                            href="{% url 'product:product-list' %}">محصولات</a></span></p>
+                    <h1 class="mb-0 bread">{{ product.title }}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 mb-5 ftco-animate">
+                    <a href="{{ product.image.url }}" class="image-popup"><img src="{{ product.image.url }}"
+                                                                               class="img-fluid"
+                                                                               alt="{{ product.title }}"></a>
+                </div>
+                <div class="col-lg-6 product-details pl-md-5 ftco-animate">
+                    <h3>{{ product.title }}</h3>
+                    <div class="rating d-flex">
+                        <p class="text-left mr-4">
+                            <a href="#" class="mr-2">5.0</a>
+                            <a href="#"><span class="ion-ios-star-outline"></span></a>
+                            <a href="#"><span class="ion-ios-star-outline"></span></a>
+                            <a href="#"><span class="ion-ios-star-outline"></span></a>
+                            <a href="#"><span class="ion-ios-star-outline"></span></a>
+                            <a href="#"><span class="ion-ios-star-outline"></span></a>
+                        </p>
+                        <p class="text-left mr-4">
+                            <a href="#" class="mr-2" style="color: #000;">100 <span style="color: #bbb;">رای</span></a>
+                        </p>
+                        <p class="text-left">
+                            <a href="#" class="mr-2" style="color: #000;">500 <span
+                                    style="color: #bbb;">فروخته شده</span></a>
+                        </p>
+                    </div>
+                    <p class="price"><span>{{ product.price }} هزار تومان</span></p>
+                    <p>{{ product.description }}</p>
+                    <form action="{% url 'cart:cart-add' product.id %}" method="post">
+                        {% csrf_token %}
+                        <div class="row mt-4">
+
+                            <div class="col-md-6">
+                                <div class="form-group d-flex">
+                                    <div class="select-wrap">
+                                        <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                        <select name="size" id="" class="form-control">
+                                            {% for size in product.size.all %}
+                                                <option value="{{ size }}">{{ size }}</option>
+                                            {% endfor %}
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-100"></div>
+
+                            <div class="input-group col-md-6 d-flex mb-3">
+	             	<span class="input-group-btn mr-2">
+	                	<button type="button" class="quantity-left-minus btn" data-type="minus" data-field="">
+	                   <i class="ion-ios-remove"></i>
+	                	</button>
+	            		</span>
+                                <input type="text" id="quantity" name="quantity" class="form-control input-number"
+                                       value="1"
+                                       min="1" max="100">
+                                <span class="input-group-btn ml-2">
+	                	<button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
+	                     <i class="ion-ios-add"></i>
+	                 </button>
+	             	</span>
+                            </div>
+
+                            <div class="w-100"></div>
+                            {% if product.availibility %}
+                                <div class="col-md-12">
+                                    <p style="color: #000;">موجودی {{ product.availibility }} کیلوگرم</p>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <button type="submit" class="btn btn-success px-5" style="color: #1e7e34;"
+                                onmouseover="this.style.color='black'" onmouseout="this.style.color='inherit'">اضافه به
+                            سبد
+                            خرید
+                        </button>
+
+                    </form>
+
+                    <form  class="mt-3" method="post" action="{% url 'cart:wishlist-add' product.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-success px-5" style="color: #1e7e34;"
+                                onmouseover="this.style.color='black'" onmouseout="this.style.color='inherit'">اضافه به علاقه مندی ها
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row justify-content-center mb-3 pb-3">
+                <div class="col-md-12 heading-section text-center ftco-animate">
+                    <span class="subheading">محصولات</span>
+                    <h2 class="mb-4">محصولات مشابه</h2>
+                    <p>سلامتی خود را تضمین کنید</p>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                {% for related_product in related_products %}
+                    <div class="col-md-6 col-lg-3 ftco-animate">
+                        <div class="product">
+                            <a href="{% url 'product:product-detail' related_product.id %}" class="img-prod"><img
+                                    class="img-fluid" src="{{ related_product.image.url }}"
+                                    alt="{{ related_product.title }}">
+                                <div class="overlay"></div>
+                            </a>
+                            <div class="text py-3 pb-4 px-3 text-center">
+                                <h3>
+                                    <a href="{% url 'product:product-detail' related_product.id %}">{{ related_product.title }}</a>
+                                </h3>
+                                <div class="d-flex">
+                                    <div class="pricing">
+                                        <p class="price">
+                                            {% if related_product.discount %}
+                                                <span class="mr-2 price-dc">{{ related_product.price }} هزار تومان</span>
+                                                <span class="price-sale">{{ related_product.discount }} هزار تومان</span>
+                                            {% else %}
+                                                <span class="price-sale">{{ related_product.price }} هزار تومان</span>
+                                            {% endif %}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="bottom-area d-flex px-3">
+                                    <div class="m-auto d-flex">
+                                        <a href="#"
+                                           class="add-to-cart d-flex justify-content-center align-items-center text-center">
+                                            <span><i class="ion-ios-menu"></i></span>
+                                        </a>
+                                        <a href="#"
+                                           class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                            <span><i class="ion-ios-cart"></i></span>
+                                        </a>
+                                        <a href="#" class="heart d-flex justify-content-center align-items-center ">
+                                            <span><i class="ion-ios-heart"></i></span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const quantityInput = document.getElementById("quantity");
+            const btnPlus = document.querySelector(".quantity-right-plus");
+            const btnMinus = document.querySelector(".quantity-left-minus");
+
+            btnPlus.addEventListener("click", function () {
+                let currentValue = parseInt(quantityInput.value);
+                if (currentValue < parseInt(quantityInput.max)) {
+                    quantityInput.value = currentValue + 1;
+                }
+            });
+
+            btnMinus.addEventListener("click", function () {
+                let currentValue = parseInt(quantityInput.value);
+                if (currentValue > parseInt(quantityInput.min)) {
+                    quantityInput.value = currentValue - 1;
+                }
+            });
+        });
+    </script>
+
+{% endblock %}

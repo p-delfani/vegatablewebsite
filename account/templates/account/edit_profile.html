@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Edit Profile
+{% endblock %}
+
+{% block content %}
+    <div class="hero-wrap hero-bread" style="background-image: url('{% static 'pics/bg_1.jpg' %}');">
+        <div class="container">
+            <div class="row no-gutters slider-text align-items-center justify-content-center">
+                <div class="col-md-9 ftco-animate text-center">
+                    <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'home:home' %}">خانه</a></span></p>
+                    <h1 class="mb-0 bread">پروفایل</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="ftco-section contact-section bg-light">
+        <div class="container">
+
+            <div class="row block-9">
+                <div class="col-md-6 order-md-last d-flex">
+                    <form method="post" class="bg-white p-5 contact-form">
+                        {% csrf_token %}
+
+                        {% if form.email.errors %}
+                            {% for error in form.email.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+
+                        {% if form.username.errors %}
+                            {% for error in form.username.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+
+
+                        <div class="form-group">
+                            {{ form.email }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.username }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.fullname }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.image }}
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary py-3 px-5">تایید</button>
+                        </div>
+
+                        <div class="form-group">
+                            <a href="{% url 'account:add-address' %}" class="btn btn-primary py-3 px-5">اضافه کردن آدرس</a>
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+{% endblock %}

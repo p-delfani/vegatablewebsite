@@ -1,0 +1,79 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+          integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+</head>
+<body>
+<div class="wrapper">
+    <div class="title"><span>ثبت نام</span></div>
+    <form method="post">
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+            {% for error in form.non_field_errors %}
+                <div class="alert alert-danger" role="alert">{{ error }}</div>
+            {% endfor %}
+        {% endif %}
+
+        {% if form.email.errors %}
+            {% for error in form.email.errors %}
+                <div class="alert alert-danger" role="alert">{{ error }}</div>
+            {% endfor %}
+        {% endif %}
+
+        {% if form.username.errors %}
+            {% for error in form.username.errors %}
+                <div class="alert alert-danger" role="alert">{{ error }}</div>
+            {% endfor %}
+        {% endif %}
+
+        {% if form.password1.errors %}
+            {% for error in form.password1.errors %}
+                <div class="alert alert-danger" role="alert">{{ error }}</div>
+            {% endfor %}
+        {% endif %}
+
+        {% if form.password2.errors %}
+            {% for error in form.password2.errors %}
+                <div class="alert alert-danger" role="alert">{{ error }}</div>
+            {% endfor %}
+        {% endif %}
+
+        <div class="row">
+            {{ form.email }}
+        </div>
+
+        <div class="row">
+
+            {{ form.username }}
+        </div>
+
+        <div class="row">
+            {{ form.fullname }}
+        </div>
+
+        <div class="row">
+            {{ form.password1 }}
+        </div>
+
+        <div class="row">
+            {{ form.password2 }}
+        </div>
+
+        <div class="row button">
+            <input type="submit" value="ثبت نام">
+        </div>
+        <div class="signup-link"><a href="{% url 'account:login' %}">ورود</a></div>
+    </form>
+</div>
+</body>
+</html>

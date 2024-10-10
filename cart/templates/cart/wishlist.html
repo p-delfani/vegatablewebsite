@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    WishList
+{% endblock %}
+
+{% block content %}
+    <div class="hero-wrap hero-bread" style="background-image: url('{% static 'pics/bg_1.jpg' %}');">
+        <div class="container">
+            <div class="row no-gutters slider-text align-items-center justify-content-center">
+                <div class="col-md-9 ftco-animate text-center">
+                    <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'home:home' %}">خانه</a></span></p>
+                    <h1 class="mb-0 bread">علاقه مندی ها</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="ftco-section ftco-cart">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 ftco-animate">
+                    {% if not wishlist.empty_cart %}
+                        <div class="cart-list">
+                            <table class="table">
+                                <thead class="thead-primary">
+                                <tr class="text-center">
+                                    <th>&nbsp;</th>
+                                    <th>&nbsp;</th>
+                                    <th>نام محصول</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for item in wishlist %}
+                                    <tr class="text-center">
+                                        <td class="product-remove">
+                                            {% if item.size %}
+                                                <a href="{% url 'cart:wishlist-delete-size' item.product.id item.product.size %}">
+                                                    <span class="ion-ios-close"></span>
+                                                </a>
+                                            {% else %}
+                                                <a href="{% url 'cart:wishlist-delete' item.product.id %}">
+                                                    <span class="ion-ios-close"></span>
+                                                </a>
+                                            {% endif %}
+
+                                        </td>
+
+                                        <td class="image-prod">
+                                            <div class="img"
+                                                 style="background-image:url({{ item.product.image.url }});"></div>
+                                        </td>
+
+                                        <td class="product-name">
+                                            <h3>{{ item.product.title }}</h3>
+                                        </td>
+
+                                    </tr>
+                                    <!-- END TR-->
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                        </div>
+                        </div>
+                        <div class="row justify-content-start py-5">
+                            <p><a href="{% url 'product:product-list' %}" class="btn btn-primary py-3 px-4">لیست
+                                محصولات</a></p>
+                        </div>
+
+
+                    {% else %}
+                        <h4>سبد شما خالی است</h4>
+                        <h5>همین حالا <a href="{% url 'product:product-list' %}"> خرید </a>کنید</h5>
+                    {% endif %}
+
+        </div>
+    </section>
+{% endblock %}

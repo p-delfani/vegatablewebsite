@@ -1,0 +1,33 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'includes/head_links.html' %}
+</head>
+
+<body class="goto-here">
+
+<!--header-->
+    {% include 'includes/top_header.html' %}
+<!--header-->
+
+<!--Start Nav-->
+    {% include 'includes/navbar.html' %}
+<!-- END nav -->
+
+{% block content %}
+
+{% endblock %}
+
+
+<!--Start Footer-->
+    {% include 'includes/footer.html' %}
+<!--End Footer-->
+
+
+
+{% include 'includes/scripts.html' %}
+
+</body>
+</html>

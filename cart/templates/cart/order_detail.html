@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Order Detail
+{% endblock %}
+
+{% block content %}
+    <div class="hero-wrap hero-bread" style="background-image: url('{% static 'pics/bg_1.jpg' %}');">
+        <div class="container">
+            <div class="row no-gutters slider-text align-items-center justify-content-center">
+                <div class="col-md-9 ftco-animate text-center">
+                    <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'home:home' %}">خانه</a></span></p>
+                    <h1 class="mb-0 bread">پرداخت صورت حساب</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7">
+                    <h3 class="mb-4 billing-heading">صورتحساب</h3>
+                    <form action="{% url 'cart:apply-discount' order.id %}" method="post" class="bg-light p-4 mb-4">
+                        {% csrf_token %}
+                        <h4 class="mb-3">کد تخفیف</h4>
+                        <p>کد تخفیف خود را وارد کنید</p>
+                        <div class="form-group">
+                            <input type="text" name="discount_code" class="form-control text-left px-3"
+                                   placeholder="کد تخفیف" required>
+                        </div>
+                        <button type="submit" class="btn btn-success px-4 py-2 mt-3">تایید کد تخفیف</button>
+                    </form>
+                </div>
+            </div>
+
+            {% if request.user.addresses.all %}
+                <form method="post" action="{% url 'cart:send-request' order.id %}">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-lg-7 mb-4">
+                            <div class="cart-total p-4 bg-light">
+                                <h4 class="mb-4">جمع کل صورتحساب</h4>
+                                <hr>
+                                {% for product in order.products.all %}
+                                    <p class="d-flex">
+                                        <span>نام محصول:</span>
+                                        <span>{{ product.title }}</span>
+                                    </p>
+                                {% endfor %}
+                                <p class="d-flex total-price">
+                                    <span>مجموع:</span>
+                                    <span>{{ order.total_price }} هزار تومان</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-7 mb-4">
+                            <div class="cart-detail p-4 bg-light">
+                                <button type="submit" class="btn btn-success btn-block px-4 py-3">ثبت سفارش</button>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-7">
+                            <div class="form-group">
+                                <label for="address">انتخاب آدرس:</label>
+                                <select name="address" class="form-control" id="address">
+                                    {% for address in request.user.addresses.all %}
+                                        <option value="{{ address.id }}">{{ address.address|truncatewords:10 }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <a href="{% url 'account:add-address' %}?next={% url 'cart:order-detail' order.id %}"
+                               class="btn btn-success btn-block py-3 mt-4">اضافه کردن آدرس
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            {% else %}
+                <div class="row">
+                    <div class="col-lg-7">
+                        <a href="{% url 'account:add-address' %}?next={% url 'cart:order-detail' order.id %}"
+                           class="btn btn-success btn-block py-3">اضافه کردن آدرس
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
+{% endblock %}

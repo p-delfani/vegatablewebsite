@@ -1,0 +1,51 @@
+{% load static %}
+
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'home:home' %}"> آسان خرید</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="oi oi-menu"></span> منو
+        </button>
+
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item {% if request.resolver_match.url_name == 'home' %}active{% endif %}"><a
+                        href="{% url 'home:home' %}" class="nav-link">خانه</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">خرید</a>
+                    <div class="dropdown-menu" id="top-dropdown-menu" aria-labelledby="dropdown04">
+                        <a class="dropdown-item" href="{% url 'cart:wishlist' %}">محصولات مورد علاقه</a>
+                        <a class="dropdown-item" href="{% url 'product:product-list' %}">لیست محصولات</a>
+                    </div>
+                </li>
+
+                <li class="nav-item {% if request.resolver_match.url_name == 'about' %}active{% endif %}"><a
+                        href="{% url 'home:about' %}" class="nav-link">درباره ما</a></li>
+
+                <li class="nav-item {% if request.resolver_match.url_name == 'post-list' %}active{% endif %}"><a
+                        href="{% url 'blog:post-list' %}" class="nav-link">بلاگ آسان خرید</a></li>
+
+                <li class="nav-item {% if request.resolver_match.url_name == 'contact' %}active{% endif %}"><a
+                        href="{% url 'home:contact' %}" class="nav-link">تماس با ما</a></li>
+
+                {% if request.user.is_authenticated %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">{{ request.user.username }}</a>
+                        <div class="dropdown-menu" id="top-dropdown-menu" aria-labelledby="dropdown04">
+                            <a class="dropdown-item" href="{% url 'account:logout' %}">خروج</a>
+                            <a class="dropdown-item" href="{% url 'account:profile-edit' %}">پروفایل</a>
+                        </div>
+                    </li>
+                {% else %}
+                    <li class="nav-item"><a href="{% url 'account:login' %}" class="nav-link">ورود</a></li>
+                    <li class="nav-item"><a href="{% url 'account:register' %}" class="nav-link">ثبت نام</a></li>
+                {% endif %}
+                <li class="nav-item cta cta-colored"><a href="{% url 'cart:cart-detail' %}" class="nav-link"><span
+                        class="icon-shopping_cart"></span>[{{ cart_count }}]</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>

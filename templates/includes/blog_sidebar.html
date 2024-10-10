@@ -1,0 +1,30 @@
+{% load static %}
+
+<div class="col-lg-4 sidebar ftco-animate">
+    <div class="sidebar-box">
+        <form action="{% url 'blog:blog-search' %}" class="search-form">
+            <div class="form-group">
+                <span class="icon ion-ios-search"></span>
+                <input type="text" name="q" value="{{ request.GET.q }}" class="form-control" placeholder="جست و جو...">
+            </div>
+        </form>
+    </div>
+
+    <div class="sidebar-box ftco-animate">
+        <h3 class="heading">آخرین پست ها</h3>
+        {% for post in recent_posts %}
+            <div class="block-21 mb-4 d-flex">
+                <a class="blog-img ml-4" style="background-image: url({{ post.image.url }});"></a>
+                <div class="text">
+                    <h3 class="heading-1"><a href="{% url 'blog:post-detail' post.id %}">{{ post.title }}</a></h3>
+                    <div class="meta">
+                        <div><a href="#"><span class="icon-calendar"></span>{{ post.created_at }}</a></div>
+                        <div><a href="#"><span class="icon-person"></span>{{ post.author.username }}</a></div>
+                        <div><a href="#"><span class="icon-chat"></span>{{ post.blog_comments.all.count }}</a></div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+</div>
